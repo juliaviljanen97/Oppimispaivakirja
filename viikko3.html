@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fi"> <!-- Lang kertoo millä kielellä dokumentti on -->
+<head>
+    <meta charset="UTF-8">
+    <title>Viikko 3 - Oppimispäiväkirja</title>
+    <script type="module" src="./assets/components/html-css-viewer.js"></script>
+    <style>
+      body {
+        background-color: rgb(218, 212, 250);
+      }
+      h1 {
+        color: #0015fa;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      h2 {
+        color: hsl(235, 100%, 49%);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      img {
+        width: 100%; 
+      } 
+p {
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 20px;
+    width: 70%;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px hsl(237, 69%, 80%);
+
+}
+
+ul {
+    list-style-type: disc; /* Oletuksena ranskalaiset viivat */
+    margin: 20px 0;
+    padding-left: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+li {
+    margin-bottom: 10px; /* Väliä listan kohteiden väliin */
+}
+
+    </style>
+</head>
+<body>
+    <h1>Viikko 3: Oppimispäiväkirja</h1>
+    <div>
+      <h2> Muistiinpanoja viikon varrelta: </h2>
+
+   <p>
+      <ul>
+<li>Asioiden sommitteluun display: block, inline, flex ja grid</li>
+<li>Flex ja grid mahdollistaa monipuolisempia leiskoja</li>
+<li>Flex kätevämpi pienemmissä komponenteissa</li>
+<li>Grid soveltuu isompiin kokonaisuuksiin, kuten koko sivun layouttiin</li>
+<li>Flex:</li>
+<li>Luo sivulle kaksi akselia, pysty ja vaaka, jonka mukaan itemit niiden sisällä määräytyy</li>
+<li>display: flex; flex-direction: row: (vierekkäin)</li>
+<li>display: flex; flex-direction: column: (allekkain)</li>
+<li>row kääntää yleensä poikittain menevän akselin alaspäin meneväksi</li>
+<li>Erillinen CSS tiedosto</li>
+<li>HTML koodiin ”link rel=”stylesheet” href”.assets/css/mun-css-tiedosto.css”</li>
+<li>Ja tee oma kansio css ja sen sisään tiedosto mun-css-tiedosto-css</li>
+<li>Selkeyttää koodia</li>
+<li>Voi tehdän myös typografialle jne omat kansiot</li>
+<li>Css reset avulla voidaan poistaa sivun oletustyylejä</li>
+<li>Googlella löytää valmiin koodinpätkän </li>
+</p>
+    </div>
+    <div>
+   <h2> Verkkosivun työstöä: </h2>
+  <p> Kävimme keskiviikkona läpi gridin ja flexin käyttöä, jotka tuli tosi hyödylliseen väliin! Olin alkanut sommittelemaan sivuani jo, ja tehnyt sen ihan hupsulla tavalla, joten tästä oli tosi paljon apua samantien. Flexin toimintaperiaatteet jäivät ehkä enemmän vielä mysteeriksi, sillä gridiä käytin heti sivuni sommittelussa ja se ehkä tuntuikin hiukan selkeämmältä hahmoittaa. Viime viikosta oppineena hahmottelin sivuani muutamaan otteeseen paperille ja sain sen loksahtamaan paremmin paikalleen, kuin aiemmin. Päädyin siihen, että jakaisin sivun ns. kahtia ja vas. puolella olisi otsikko, kuva nauriista ja infotekstiä aiheesta ja oik. puolella itse ”hauta”. Sain rakennettua gridin hahmotelmieni perusteella ja olen siihen tyytyväinen! Alkuun ajattelin, että sivu toimisi vielä niin, että vas puoli pysyisi paikallaan ja oik puoli olisi scrollattava, niin, että siinä niin ikään scrollaamalla kaivauduttaisiin syvemmälle naurishautaan. Sainkin sivun alkuun rakennettua näin, mutta tuntuu, että olin tämän sommitelman kanssa aika jumissa, enkä oikeen keksinyt millaista sisältöä sisällyttäisin siihen nauriiden lisäksi. Viime viikkoinen ideani myös sivulta pois linkkaamiselle alkoi tuntua jotenkin irralliselta tai en oikein keksinyt mitään järkevää ratkaisua siihen, mihin linkit veisivät. Sain nämä ongelmat ratkaistua peruuttamalla hiukan takaisinpäin ja keksimällä, että ”syvemmälle kaivautumisen” haudassa voisikin kuvasta niin, että oik. puolella olisi hautakiven muotoinen painike, jota klikkamalla taustakuvan gradient muuttuisi tummemmaksi ja tummemmaksi kuvastaen syvemmälle menemistä. Kun linkkiä olisi tarpeeksi klikkaillut, paljastuisivat onkalosta nauriit, joita klikkaamalla kuulisi osia ai-metallibiisistä. Sain tämän toteutettua viime viikolla siihen pisteeseen, että lopusta puuttuvat enää vain nauriit, joihin täytyy yhdistää itse musiikkitiedostot! </p>
+
+   <p>Estetiikan kannalta löysin verkosta ihan siistin hevimäisen fontin, jolla toteutin vas. puolella olevan otsikon. Sen lisäksi hommasin nauriin ja puuhasin siitä kotona leimasimen avulla mustia painojälkiä, joista keksin toteuttaa naurisfontin. Ajattelin, että tällä vaikeasti luettavalla fontilla voisi toteuttaa vas. puolen infotekstiosuuden, jotta sivu vaikuttaisi mahdollisimman hämyiseltä! Sen lisäksi otin tästä nauriista muutaman kuvan mustaksi maalattuna foliota vasten ja siitä sai bitmapiksi muuntamalla aika hienon kuvan infotekstin viereen. Alan olemaan sivun ulkonäköön suht tyytyväinen ja musta oli kiva yhdistää verkkosivuun myös tämmöstä kotikutosta käsintekemistä, joka ei välttämättä ole kovin perinteinen tapa verkkosivujen työstössä.
+</p>
+   <img src="nayttokuva.jpg" alt="Verkkosivun työstöä - näyttökuva" />
+</div>
+    <nav>
+        <a href="viikko2.html">← Edellinen viikko</a> |
+        <a href="viikko4.html">Seuraava viikko →</a>
+    </nav>
+</body>
+</html>
