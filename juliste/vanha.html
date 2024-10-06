@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Juliste</title>
+  <link rel="stylesheet" href="poster-template.css">
+  <style>
+    body {
+      transform-origin:0 0;
+      scale: 1;
+    }
+
+    *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+      all: unset;
+      display: revert;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin:0;
+      width:fit-content;
+      background-color: #232323;
+    }
+
+      .grid-letters {
+    display: grid;
+    grid-template-columns: repeat(14, 100px); /* 50 saraketta, jokainen 70px leveä */
+    grid-template-rows: repeat(10, 100px); /* 50 riviä, jokainen 70px korkea */
+    position: absolute; /* Aseta elementti absoluuttiseen sijaintiin */
+    top: 0; /* Aseta yläreuna 0:aan */
+    left: 0; /* Aseta vasen reuna 0:aan */
+    width: 350px; /* Koko leveys */
+    height: 350px; /* Koko korkeus */
+    z-index: 0; /* Taustalle */
+  }
+
+  .letter {
+    display: flex; /* Flexboxin käyttö kirjaimien keskittämiseen */
+    justify-content: center; /* Keskitetään vaakasuunnassa */
+    align-items: center; /* Keskitetään pystysuunnassa */
+    font-family: 'hautanauris'; /* Käytä haluamaasi fonttia */
+    font-size: 50px; /* Aseta fonttikoko tarpeen mukaan */
+    color: rgb(44, 44, 44); /* Kirjainten väri */
+    background: rgba(101, 101, 101, 0.5); /* Taustaväri */
+    border: 5px solid black; /* Voit lisätä reunat halutessasi */
+    height: 120px; /* Aseta kiinteä korkeus */
+    width: 300px; /* Aseta kiinteä leveys */
+  }
+
+    @page {
+      size: 852mm 1212mm;
+      margin: 0mm;
+    }
+    main {
+      width:846mm;
+      height:1206mm;
+      margin:3mm;
+      position:relative;
+    }
+    .poster-content {
+      width:100%;
+      height:100%;
+    }
+    .cropmark, .cropmark:after {
+      position:absolute;
+      background:black;
+      outline:0.1mm solid white;
+      z-index:10000;
+    }
+    .topleft {
+      width:0.1mm;
+      height: 4mm;
+      top:-3mm;
+      left:3mm;
+    }
+    .topleft::after { 
+      content:'';
+      height:0.1mm;
+      width:4mm;
+      top:6mm;
+      left:-6mm;
+    }
+    .topright {
+      width:0.1mm;
+      height:4mm;
+      top:-3mm;
+      right:3mm;
+    }
+    .topright::after {
+      content:'';
+      height:0.1mm;
+      width:4mm;
+      top:6mm;
+      right:-6mm;
+    }
+    .bottomleft {
+      width:0.1mm;
+      height:4mm;
+      bottom:-3mm;
+      left:3mm;
+    }
+    .bottomleft::after {
+      content:'';
+      height:0.1mm;
+      width:4mm;
+      bottom:6mm;
+      left:-6mm;
+    }
+    .bottomright {
+      width:0.1mm;
+      height:4mm;
+      bottom:-3mm;
+      right:3mm;
+    }
+    .bottomright::after {
+      content:'';
+      height:0.1mm;
+      width:4mm;
+      bottom:6mm;
+      right:-6mm;
+    }
+
+    /* Omat */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Kaksi saraketta */
+      grid-template-rows: 1fr 1fr;    /* Kaksi riviä */
+      height: 100%; /* Koko korkeus käytössä */
+    }
+
+    /* Jokainen ruutu */
+    .box {
+      z-index: 10;
+    }
+
+    /* Muokattavat ruudut */
+    .box1 {
+    background: linear-gradient(
+    30deg,
+    transparent 10%,
+    transparent 10%,
+    rgb(255, 255, 255, 0.4) 50%,
+    rgb(255, 255, 255, 0.4) 55%,
+    transparent 70%,
+    transparent 70%
+  );      
+      font-family: 'murderpark';
+      font-size: 700px;
+      align-content: center;
+      color: rgb(255, 255, 214); /* Tekstin väri */
+      text-shadow: 2px 2px 0px black, -2px -2px 0px black,
+                   2px -2px 0px black, -2px 2px 0px black; /* Ääriviivat */
+      transform: rotate(deg) skewX(deg);
+      width: 100%; /* Koko leveys */
+      text-align: center; /* Keskitetty teksti */
+      display: flex; /* Flexbox käyttöön */
+      justify-content: center; /* Keskitetään vaakasuunnassa */
+      align-items: center; /* Keskitetään pystysuunnassa */
+      border: 5px solid transparent;
+      border-radius: 1000px;
+      margin: 0px;
+    }
+
+      .box2 {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr); /* 2 equal rows */
+    grid-template-columns: repeat(4, 1fr); /* 2 equal columns */
+    width: 100%; /* Ensure it takes full width */
+    height: 100%; /* Ensure it takes full height */
+    border: 50px solid #7cc1f6;
+  }
+
+  .box2 div {
+    background: radial-gradient(circle, #000000, #4f3809, #f5a9d5, #7cc1f6);
+    width: 100%; /* Fill the grid cell */
+    height: 100%; /* Fill the grid cell */
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
+
+    .box3 {
+      background: #7cc1f6;
+    }
+
+    .box4 {
+      background: #7cc1f6;
+    }
+
+    @font-face {
+      font-family: 'murderpark';
+      src: url('murderpark.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'hautanauris';
+      src: url('hautanauris-font.otf') format('opentype');
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+    <!-- CROP MARKS - ÄLÄ POISTA! -->
+    <div class="cropmark topleft"></div>
+    <div class="cropmark topright"></div>
+    <div class="cropmark bottomleft"></div>
+    <div class="cropmark bottomright"></div>
+    <div class="poster-content">
+      <!-- JULISTEEN SISÄLTÖ NÄIDEN KAHDEN KOMMENTIN VÄLIIN -->
+      <p class="grid-letters">
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+        <span class="letter">H</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">t</span>
+        <span class="letter">a</span>
+        <span class="letter">n</span>
+        <span class="letter">a</span>
+        <span class="letter">u</span>
+        <span class="letter">r</span>
+        <span class="letter">i</span>
+        <span class="letter">S</span>
+      </p>
+      <div class="grid-container">
+        <div class="box box1"></div>
+          <div class="box box2">
+            <!-- Pienet neliöt box2:seen -->
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <!-- Lisää rivejä -->
+          </div>
+        <div class="box box3">Osa 3</div>
+        <div class="box box4">Osa 4</div>
+      </div>
+      <!-- JULISTEEN SISÄLTÖ NÄIDEN KAHDEN KOMMENTIN VÄLIIN -->
+    </div>
+  </main>
+</body>
+</html>
